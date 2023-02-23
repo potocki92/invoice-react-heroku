@@ -2,20 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const routes = require("./routes.js");
-const dotenv = require("dotenv");
 const path = require("path");
 
-dotenv.config();
-
-const USERNAME_FROM_MONGODB = process.env.USERNAME_FROM_MONGODB;
-const PASSWORD_FROM_MONGODB = process.env.PASSWORD_FROM_MONGODB;
-const CLUSTER_NAME_FROM_MONGODB = process.env.CLUSTER_NAME_FROM_MONGODB;
-const DATABASE_NAME = process.env.DATABASE_NAME;
-
-const uri =
-  `mongodb+srv://${USERNAME_FROM_MONGODB}:` +
-  encodeURIComponent(PASSWORD_FROM_MONGODB) +
-  `@${CLUSTER_NAME_FROM_MONGODB}.zsrttvb.mongodb.net/${DATABASE_NAME}`;
+const uri = process.env.MONGODB_URI;
 
 const app = express();
 app.use(express.json());
