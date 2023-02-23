@@ -30,7 +30,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/", routes);
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "build")));
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
