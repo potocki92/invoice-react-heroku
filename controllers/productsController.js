@@ -1,7 +1,7 @@
-import User from "../models/userModel.js";
+var User = require("../models/userModel.js").default;
 
 // POST
-export const addProduct = async (req, res) => {
+const addProduct = async (req, res) => {
   const id = req.params.id;
   const product = { ...req.body };
   console.log(id, product);
@@ -22,7 +22,7 @@ export const addProduct = async (req, res) => {
 };
 
 // GET
-export const getProducts = async (req, res) => {
+const getProducts = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -37,7 +37,7 @@ export const getProducts = async (req, res) => {
 };
 
 // DELETE
-export const deleteProduct = async (req, res) => {
+const deleteProduct = async (req, res) => {
   const userId = req.params.id;
   const productId = req.params.productId;
   try {
@@ -55,3 +55,4 @@ export const deleteProduct = async (req, res) => {
     res.status(500).send("Internal server error");
   }
 };
+module.exports = { addProduct, getProducts, deleteProduct };

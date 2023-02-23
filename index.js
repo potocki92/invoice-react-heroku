@@ -1,9 +1,9 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import routes from "./routes.js";
-import dotenv from "dotenv";
-import path from "path";
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const routes = require("./routes.js");
+const dotenv = require("dotenv");
+const path = require("path");
 
 dotenv.config();
 
@@ -30,9 +30,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/", routes);
-app.use(
-  express.static(path.join(new URL(".", import.meta.url).pathname, "public"))
-);
+app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);

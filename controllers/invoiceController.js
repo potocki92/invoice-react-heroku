@@ -1,7 +1,7 @@
-import User from "../models/userModel.js";
+var User = require("../models/userModel.js");
 
 // POST
-export const addInvoice = async (req, res) => {
+const addInvoice = async (req, res) => {
   const id = req.params.id;
   const invoice = { ...req.body };
   console.log(id, invoice);
@@ -22,7 +22,7 @@ export const addInvoice = async (req, res) => {
 };
 
 // GET
-export const getInvoices = async (req, res) => {
+const getInvoices = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -35,3 +35,5 @@ export const getInvoices = async (req, res) => {
     res.status(500).send("Internal server error");
   }
 };
+
+module.exports = { addInvoice, getInvoices };
