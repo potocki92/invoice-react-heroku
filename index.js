@@ -6,8 +6,8 @@ const path = require("path");
 const dotenv = require("dotenv");
 
 dotenv.config();
-const uri = process.env.MONGODB_URI;
-
+const uri =
+  "mongodb+srv://satanista:satanista123@cluster0.zsrttvb.mongodb.net/invoices_database";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded());
