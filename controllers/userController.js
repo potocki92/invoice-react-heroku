@@ -68,4 +68,28 @@ const getUser = async (req, res) => {
   }
 };
 
-module.exports = { loginUser, registerUser, getUser };
+// PUT
+const putUser = async (req, res) => {
+  const userId = req.params.id;
+  const updateUser = { ...req.body };
+  console.log(userId, updateUser);
+  try {
+    const user = await User.updateOne(
+      {
+        _id: userId,
+      },
+      {
+        $set: { user: updateUser },
+      }
+    );
+    if (user.nModified === 0) {
+      res.status(404).send("User not found");
+      return;
+    }
+    res.send("User updated successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+};
+module.exports = { loginUser, registerUser, getUser, putUser };

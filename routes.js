@@ -3,6 +3,7 @@ const {
   loginUser,
   registerUser,
   getUser,
+  putUser,
 } = require("./controllers/userController.js");
 const {
   addProduct,
@@ -69,5 +70,8 @@ USER
 
 // GET
 router.get("/:id/user", getUser);
+
+// PUT
+router.put("/:id/user", putUser);
 
 module.exports = router;
