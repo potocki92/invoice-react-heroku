@@ -70,4 +70,4 @@ USER
 // GET
 router.get("/:id/user", getUser);
 
-export default router;
+module.exports = router;
