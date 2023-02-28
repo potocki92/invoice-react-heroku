@@ -1,7 +1,7 @@
-var User = require("../models/userModel.js");
+import User from "../models/userModel.js";
 
 // POST
-const addInvoice = async (req, res) => {
+export const addInvoice = async (req, res) => {
   const id = req.params.id;
   const invoice = { ...req.body };
   console.log(id, invoice);
@@ -22,11 +22,11 @@ const addInvoice = async (req, res) => {
 };
 
 // GET
-const getInvoices = async (req, res) => {
+export const getInvoices = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
-      res.status(404).send("User not founr");
+      res.status(404).send("User not found");
       return;
     }
     res.json(user.invoices);
@@ -35,5 +35,22 @@ const getInvoices = async (req, res) => {
     res.status(500).send("Internal server error");
   }
 };
-
-module.exports = { addInvoice, getInvoices };
+// DELETE
+export const deleteInvoice = async (req, res) => {
+  const userId = req.params.id;
+  const invoiceId = req.params.invoiceId;
+  try {
+    const result = await User.updateOne(
+      { _id: userId },
+      { $pull: { invoices: { _id: invoiceId } } }
+    );
+    if (!result) {
+      res.status(404).send("Invoice not found");
+      return;
+    }
+    res.send("Invoice removed successfully");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+};

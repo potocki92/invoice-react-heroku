@@ -1,12 +1,14 @@
-const User = require("../models/userModel.js");
+import User from "../models/userModel.js";
 
 // Login User
-const loginUser = (req, res) => {
+export const loginUser = (req, res) => {
   const { email, password } = req.body;
-  console.log("Firebase Login");
-  User.findOne({ email: email }, (err, user) => {
+  console.log("Login");
+  User.findOne({ "user.email": email }, (err, user) => {
     if (user) {
-      if (password === user.password) {
+      const userEmail = user.user;
+      console.log(userEmail);
+      if (password === user.user.password) {
         res.send({ message: "Login Successfull", user: user });
       } else {
         res.send({ message: "Password didn't match" });
@@ -18,17 +20,18 @@ const loginUser = (req, res) => {
 };
 
 // Register User
-const registerUser = (req, res) => {
+export const registerUser = (req, res) => {
   const { name, email, password } = req.body;
-  console.log("asdad");
-  User.findOne({ email: email }, (err, user) => {
+  User.findOne({ "user.email": email }, (err, user) => {
     if (user) {
       res.send({ message: "User already registered" });
     } else {
       const user = new User({
-        name,
-        email,
-        password,
+        user: {
+          name,
+          email,
+          password,
+        },
       });
       user.save((err) => {
         if (err) {
@@ -41,4 +44,17 @@ const registerUser = (req, res) => {
   });
 };
 
-module.exports = { loginUser, registerUser };
+// GET
+export const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.padrams.id);
+    if (!user) {
+      res.status(404).send("User not found");
+      return;
+    }
+    res.json(user.user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+};
