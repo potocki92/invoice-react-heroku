@@ -56,7 +56,7 @@ const registerUser = (req, res) => {
 // GET
 const getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.padrams.id);
+    const user = await User.findById(req.params.id);
     if (!user) {
       res.status(404).send("User not found");
       return;
