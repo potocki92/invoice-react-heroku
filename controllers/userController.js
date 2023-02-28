@@ -3,10 +3,12 @@ const User = require("../models/userModel.js");
 // Login User
 const loginUser = (req, res) => {
   const { email, password } = req.body;
-  console.log("Firebase Login");
+  console.log("Login");
   User.findOne({ "user.email": email }, (err, user) => {
     if (user) {
-      if (password === user.password) {
+      const userEmail = user.user;
+      console.log(userEmail);
+      if (password === user.user.password) {
         res.send({ message: "Login Successfull", user: user });
       } else {
         res.send({ message: "Password didn't match" });
@@ -26,9 +28,19 @@ const registerUser = (req, res) => {
       res.send({ message: "User already registered" });
     } else {
       const user = new User({
-        name,
-        email,
-        password,
+        user: {
+          name,
+          email,
+          password,
+          NIP: "",
+          REGON: "",
+          address: {
+            city: "",
+            postalCode: "",
+            street: "",
+          },
+          phone: "",
+        },
       });
       user.save((err) => {
         if (err) {
