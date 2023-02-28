@@ -1,24 +1,24 @@
-import express from "express";
-import {
-  getUser,
+const express = require("express");
+const {
   loginUser,
   registerUser,
-} from "./controllers/userController.js";
-import {
+  getUser,
+} = require("./controllers/userController.js");
+const {
   addProduct,
   getProducts,
   deleteProduct,
-} from "./controllers/productsController.js";
-import {
+} = require("./controllers/productsController.js");
+const {
   addClient,
   deleteClient,
   getClients,
-} from "./controllers/clientController.js";
-import {
+} = require("./controllers/clientController.js");
+const {
   addInvoice,
   getInvoices,
   deleteInvoice,
-} from "./controllers/invoiceController.js";
+} = require("./controllers/invoiceController.js");
 const router = express.Router();
 
 /* 
@@ -62,7 +62,6 @@ router.post("/:id/addInvoice", addInvoice);
 router.get("/:id/invoices", getInvoices);
 // DELETE
 router.delete("/:id/:invoiceID", deleteInvoice);
-export default router;
 
 /*
 USER
@@ -70,3 +69,5 @@ USER
 
 // GET
 router.get("/:id/user", getUser);
+
+export default router;
