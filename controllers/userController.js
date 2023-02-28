@@ -4,7 +4,7 @@ const User = require("../models/userModel.js");
 const loginUser = (req, res) => {
   const { email, password } = req.body;
   console.log("Firebase Login");
-  User.findOne({ email: email }, (err, user) => {
+  User.findOne({ "user.email": email }, (err, user) => {
     if (user) {
       if (password === user.password) {
         res.send({ message: "Login Successfull", user: user });
@@ -21,7 +21,7 @@ const loginUser = (req, res) => {
 const registerUser = (req, res) => {
   const { name, email, password } = req.body;
   console.log("asdad");
-  User.findOne({ email: email }, (err, user) => {
+  User.findOne({ "user.email": email }, (err, user) => {
     if (user) {
       res.send({ message: "User already registered" });
     } else {
