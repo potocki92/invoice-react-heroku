@@ -62,7 +62,7 @@ router.post("/:id/addInvoice", addInvoice);
 // GET
 router.get("/:id/invoices", getInvoices);
 // DELETE
-router.delete("/:id/:invoiceID", deleteInvoice);
+router.delete("/:id/invoices/:invoiceId", deleteInvoice);
 
 /*
 USER
